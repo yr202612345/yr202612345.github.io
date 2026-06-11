@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>地球日焦点图</title>
+    <style>
+         .banner {
+            width: 750px;
+            height: 320px;
+            margin: 30px auto;
+            position: relative;
+            background: url("banner1.jpg") no-repeat;
+            background-size: 100% 100%;
+        }
+        /* 左右箭头 绝对定位 */
+        .left,.right {
+            width: 42px;
+            height: 42px;
+            position: absolute;
+            top: 50%;
+            margin-top: -21px;
+        }
+        .left {
+            left: 10px;
+            background: url(arrow1.png) no-repeat;
+            background-size: 100%;
+        }
+        .right {
+            right: 10px;
+            background: url(arrow2.png) no-repeat;
+            background-size: 100%;
+        }
+        /* 圆点容器 */
+        .dots {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            margin-left: -50px;
+            overflow: hidden;
+        }
+        /* 圆点浮动横向排列 */
+        .dot {
+            width:13px;
+            height:13px;
+            float: left;
+            margin: 0 4px;
+            background: url(point1.png) no-repeat;
+            background-size:100%;
+        }
+        /* 选中圆点 */
+        .dot.on {
+            background-image: url(point2.png);
+        }
+        .dot:hover{
+            background-image: url(point2.png);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        
+        
+        <div class="dots">
+            <span class="dot"></span>
+            <span class="dot on"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</body>
+</html>
