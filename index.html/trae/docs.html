@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAE 文档 - API 参考与技术文档</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .docs-page {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+        }
+
+        .docs-header {
+            padding: 120px 40px 20px;
+            text-align: center;
+        }
+
+        .docs-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .docs-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 快速入口 */
+        .quick-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 24px 0 40px;
+        }
+
+        .quick-link {
+            padding: 10px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(88,166,255,0.06);
+        }
+
+        .quick-link .emoji {
+            margin-right: 6px;
+        }
+
+        /* API 文档区域 */
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .api-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .api-card {
+            flex: 1;
+            min-width: 300px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .api-card:hover {
+            border-color: var(--accent);
+        }
+
+        .api-card .api-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .api-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .api-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .api-card .api-badge {
+            display: inline-block;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            background: rgba(88,166,255,0.1);
+            color: var(--accent);
+        }
+
+        .api-card .api-badge.stable {
+            background: rgba(63,185,80,0.1);
+            color: var(--accent-green);
+        }
+
+        .api-card .api-badge.beta {
+            background: rgba(163,113,247,0.1);
+            color: var(--accent-purple);
+        }
+
+        /* 代码示例 */
+        .code-section {
+            margin-bottom: 48px;
+        }
+
+        .code-example {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .code-lang {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .code-copy {
+            font-size: 12px;
+            color: var(--accent);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .code-content {
+            padding: 20px;
+            font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+            color: var(--text-secondary);
+        }
+
+        .code-content .kw { color: #ff7b72; }
+        .code-content .fn { color: #d2a8ff; }
+        .code-content .str { color: #a5d6ff; }
+        .code-content .cm { color: #8b949e; font-style: italic; }
+
+        /* 文档章节 */
+        .doc-sections {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .doc-section {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .doc-section h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .doc-link-list {
+            list-style: none;
+        }
+
+        .doc-link-list li {
+            padding: 8px 0;
+        }
+
+        .doc-link-list li a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .doc-link-list li a:hover {
+            color: var(--accent);
+        }
+
+        .doc-link-list li a::before {
+            content: '›';
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="docs-page">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="navbar-inner">
+                <a href="index.html" class="nav-logo">
+                    <span class="logo-icon">T</span>
+                    TRAE
+                </a>
+                <ul class="nav-links">
+                    <li>
+                        <a href="#">产品 ▾</a>
+                        <div class="dropdown-menu">
+                            <a href="index.html">TRAE IDE</a>
+                            <a href="work.html">TRAE Work</a>
+                        </div>
+                    </li>
+                    <li><a href="enterprise.html">企业版</a></li>
+                    <li><a href="pricing.html">定价</a></li>
+                    <li><a href="changelog.html">更新日志</a></li>
+                    <li><a href="community.html">社区</a></li>
+                    <li><a href="knowledge.html">知识库</a></li>
+                    <li><a href="docs.html" class="active">文档</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="#" class="btn-login">登录</a>
+                    <a href="#" class="btn-primary">下载中心</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 页面标题 -->
+        <div class="docs-header">
+            <h1>开发者文档</h1>
+            <p>完整的 API 参考、SDK 指南与技术文档</p>
+        </div>
+
+        <div class="container">
+            <!-- 快速入口 -->
+            <div class="quick-links">
+                <a class="quick-link"><span class="emoji">🚀</span>快速开始</a>
+                <a class="quick-link"><span class="emoji">📦</span>SDK 下载</a>
+                <a class="quick-link"><span class="emoji">🔌</span>插件开发</a>
+                <a class="quick-link"><span class="emoji">📊</span>API 参考</a>
+                <a class="quick-link"><span class="emoji">🔄</span>迁移指南</a>
+                <a class="quick-link"><span class="emoji">📝</span>更新日志</a>
+            </div>
+
+            <!-- API 参考 -->
+            <h2 class="section-title">📡 API 参考</h2>
+            <div class="api-grid">
+                <div class="api-card">
+                    <div class="api-icon">💬</div>
+                    <h3>对话 API</h3>
+                    <p>通过 API 与 TRAE AI 进行对话交互，获取代码建议和解答</p>
+                    <span class="api-badge stable">v2 · Stable</span>
+                </div>
+                <div class="api-card">
+                    <div class="api-icon">✨</div>
+                    <h3>代码补全 API</h3>
+                    <p>集成智能代码补全到你的编辑器或应用中</p>
+                    <span class="api-badge stable">v2 · Stable</span>
+                </div>
+                <div class="api-card">
+                    <div class="api-icon">🔍</div>
+                    <h3>代码审查 API</h3>
+                    <p>自动审查代码质量，发现潜在问题和改进建议</p>
+                    <span class="api-badge beta">v1 · Beta</span>
+                </div>
+                <div class="api-card">
+                    <div class="api-icon">📄</div>
+                    <h3>文档生成 API</h3>
+                    <p>根据代码自动生成 API 文档和使用说明</p>
+                    <span class="api-badge beta">v1 · Beta</span>
+                </div>
+            </div>
+
+            <!-- 代码示例 -->
+            <h2 class="section-title">💻 快速上手示例</h2>
+            <div class="code-section">
+                <div class="code-example">
+                    <div class="code-header">
+                        <span class="code-lang">Python - 对话 API 调用示例</span>
+                        <button class="code-copy">📋 复制</button>
+                    </div>
+                    <div class="code-content">
+<span class="kw">import</span> requests
+
+<span class="cm"># TRAE API 配置</span>
+API_URL = <span class="str">"https://api.trae.cn/v2/chat"</span>
+API_KEY = <span class="str">"your-api-key-here"</span>
+
+<span class="kw">def</span> <span class="fn">ask_trae</span>(prompt: str) -> dict:
+    <span class="str">"""向 TRAE AI 发送编程问题"""</span>
+    headers = {
+        <span class="str">"Authorization"</span>: <span class="str">f"Bearer {API_KEY}"</span>,
+        <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>
+    }
+    payload = {
+        <span class="str">"model"</span>: <span class="str">"trae-pro"</span>,
+        <span class="str">"messages"</span>: [
+            {<span class="str">"role"</span>: <span class="str">"user"</span>, <span class="str">"content"</span>: prompt}
+        ]
+    }
+    response = requests.post(API_URL, json=payload, headers=headers)
+    <span class="kw">return</span> response.json()
+
+<span class="cm"># 使用示例</span>
+result = ask_trae(<span class="str">"用 Python 写一个快速排序函数"</span>)
+print(result[<span class="str">"choices"</span>][0][<span class="str">"message"</span>][<span class="str">"content"</span>])
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文档章节 -->
+            <h2 class="section-title">📚 文档目录</h2>
+            <div class="doc-sections">
+                <div class="doc-section">
+                    <h3>入门指南</h3>
+                    <ul class="doc-link-list">
+                        <li><a>安装与环境配置</a></li>
+                        <li><a>5分钟快速上手</a></li>
+                        <li><a>界面与布局介绍</a></li>
+                        <li><a>第一个 AI 对话</a></li>
+                        <li><a>快捷键速查表</a></li>
+                    </ul>
+                </div>
+                <div class="doc-section">
+                    <h3>核心功能</h3>
+                    <ul class="doc-link-list">
+                        <li><a>智能代码补全</a></li>
+                        <li><a>对话式编程</a></li>
+                        <li><a>多模型切换</a></li>
+                        <li><a>代码审查</a></li>
+                        <li><a>项目上下文管理</a></li>
+                    </ul>
+                </div>
+                <div class="doc-section">
+                    <h3>高级配置</h3>
+                    <ul class="doc-link-list">
+                        <li><a>自定义补全策略</a></li>
+                        <li><a>模型参数调优</a></li>
+                        <li><a>团队共享配置</a></li>
+                        <li><a>安全与隐私设置</a></li>
+                        <li><a>性能优化指南</a></li>
+                    </ul>
+                </div>
+                <div class="doc-section">
+                    <h3>插件生态</h3>
+                    <ul class="doc-link-list">
+                        <li><a>插件市场</a></li>
+                        <li><a>开发自己的插件</a></li>
+                        <li><a>插件 API 参考</a></li>
+                        <li><a>上架与分发</a></li>
+                        <li><a>官方插件列表</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 TRAE. All rights reserved.</p>
+    </footer>
+</body>
+</html>

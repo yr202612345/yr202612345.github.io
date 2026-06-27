@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAE 企业版 - 团队协作与私有化部署</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .enterprise-page {
+            min-height: 100vh;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .enterprise-page .navbar {
+            background: rgba(10, 10, 10, 0.92);
+            border-bottom-color: #222;
+        }
+
+        .enterprise-page .nav-links > li > a {
+            color: #888;
+        }
+
+        .enterprise-page .nav-links > li > a:hover,
+        .enterprise-page .nav-links > li > a.active {
+            color: #fff;
+        }
+
+        .enterprise-page .dropdown-menu {
+            background: #1a1a1a;
+            border-color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 标题区域 */
+        .enterprise-header {
+            padding: 120px 40px 20px;
+            text-align: center;
+        }
+
+        .enterprise-header h1 {
+            font-size: 44px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .enterprise-header p {
+            font-size: 18px;
+            color: #999;
+            max-width: 600px;
+            margin: 0 auto 32px;
+            line-height: 1.6;
+        }
+
+        .enterprise-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-gold:hover { opacity: 0.9; }
+
+        .btn-outline-white {
+            border: 1px solid #444;
+            background: transparent;
+            color: #fff;
+            padding: 14px 32px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .btn-outline-white:hover { border-color: #f59e0b; }
+
+        /* 核心优势 */
+        .features-section {
+            padding: 80px 40px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-card {
+            background: #141414;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 28px;
+            transition: border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: #f59e0b;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .icon-gold { background: rgba(245,158,11,0.15); color: #f59e0b; }
+        .icon-green { background: rgba(16,185,129,0.15); color: #10b981; }
+        .icon-blue { background: rgba(88,166,255,0.15); color: #58a6ff; }
+
+        .feature-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* 方案对比表 */
+        .compare-section {
+            padding: 60px 40px;
+            background: #0d0d0d;
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: #141414;
+            border: 1px solid #222;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .compare-table th,
+        .compare-table td {
+            text-align: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #222;
+        }
+
+        .compare-table th {
+            background: #1a1a1a;
+            font-weight: 600;
+            color: #f59e0b;
+            font-size: 14px;
+        }
+
+        .compare-table th:first-child,
+        .compare-table td:first-child {
+            text-align: left;
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .compare-table td {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .compare-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge-gold {
+            display: inline;
+            background: #f59e0b;
+            color: #000;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .check { color: #10b981; font-size: 16px; }
+        .dash { color: #555; }
+
+        /* 客户案例 */
+        .cases-section {
+            padding: 80px 40px;
+        }
+
+        .case-logos {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .case-logo {
+            width: 120px;
+            height: 60px;
+            background: #141414;
+            border: 1px solid #222;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* 底部 CTA */
+        .cta-section {
+            text-align: center;
+            padding: 60px 40px 80px;
+        }
+
+        .cta-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="enterprise-page">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="navbar-inner">
+                <a href="index.html" class="nav-logo">
+                    <span class="logo-icon">T</span>
+                    TRAE
+                </a>
+                <ul class="nav-links">
+                    <li>
+                        <a href="#">产品 ▾</a>
+                        <div class="dropdown-menu">
+                            <a href="index.html">TRAE IDE</a>
+                            <a href="work.html">TRAE Work</a>
+                        </div>
+                    </li>
+                    <li><a href="pricing.html">定价</a></li>
+                    <li><a href="enterprise.html" class="active">企业版</a></li>
+                    <li><a href="changelog.html">更新日志</a></li>
+                    <li><a href="community.html">社区</a></li>
+                    <li><a href="knowledge.html">知识库</a></li>
+                    <li><a href="docs.html">文档</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="#" class="btn-login">登录</a>
+                    <a href="#" class="btn-primary">下载中心</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 标题 -->
+        <div class="enterprise-header">
+            <h1>TRAE 企业版</h1>
+            <p>为团队和企业提供安全、高效、可定制的 AI 编程解决方案，支持私有化部署与专属模型训练</p>
+            <div class="enterprise-actions">
+                <button class="btn-gold">预约演示</button>
+                <button class="btn-outline-white">联系销售</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- 核心优势 -->
+            <div class="features-section">
+                <h2 class="section-title">核心优势</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon icon-gold">🔒</div>
+                        <h3>数据安全保障</h3>
+                        <p>支持私有化部署，代码数据不出企业内网，符合 SOC2 和 ISO 27001 安全标准</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green">⚡</div>
+                        <h3>专属模型训练</h3>
+                        <p>基于企业代码库微调 AI 模型，深度理解业务领域，提供更精准的代码建议</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue">👥</div>
+                        <h3>团队管理</h3>
+                        <p>统一管理团队账号与权限，SSO 单点登录，灵活的席位分配与用量管控</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-gold">📊</div>
+                        <h3>效能分析</h3>
+                        <p>可视化团队使用数据，量化 AI 辅助编程的效能提升，辅助管理决策</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green">🔌</div>
+                        <h3>深度集成</h3>
+                        <p>对接企业内部 CI/CD 流水线、代码仓库、项目管理等工具链</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon icon-blue">🎧</div>
+                        <h3>专属技术支持</h3>
+                        <p>7×24 小时企业级技术支持，专属客户成功经理对接，快速响应</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 方案对比 -->
+        <div class="compare-section">
+            <div class="container">
+                <h2 class="section-title">方案对比</h2>
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>功能</th>
+                            <th>个人版</th>
+                            <th>企业版 <span class="badge-gold">推荐</span></th>
+                            <th>定制版</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AI 代码补全</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>AI 对话编程</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>专属模型微调</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>私有化部署</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>SSO 单点登录</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>用量统计看板</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>自定义安全策略</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 客户案例 -->
+        <div class="cases-section">
+            <h2 class="section-title">信赖 TRAE 的企业</h2>
+            <div class="case-logos">
+                <div class="case-logo">TechCorp</div>
+                <div class="case-logo">ByteDance</div>
+                <div class="case-logo">CloudBase</div>
+                <div class="case-logo">DataFlow</div>
+                <div class="case-logo">CodeLab</div>
+                <div class="case-logo">AIStudio</div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>准备好升级企业版了吗？</h2>
+            <p>立即联系我们，获取专属方案与报价</p>
+            <div class="enterprise-actions">
+                <button class="btn-gold">预约演示</button>
+                <button class="btn-outline-white">下载产品白皮书</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer" style="background: #0a0a0a; border-color: #222;">
+        <p>&copy; 2025 TRAE. All rights reserved.</p>
+    </footer>
+</body>
+</html>

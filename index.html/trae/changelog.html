@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAE 更新日志 - 探索最新动态</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .changelog-page {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+        }
+
+        .changelog-header {
+            padding: 120px 40px 40px;
+            text-align: center;
+        }
+
+        .changelog-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .changelog-header p {
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        /* ========== 时间线样式 ========== */
+        .timeline-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 40px 80px;
+            position: relative;
+        }
+
+        /* 左侧虚线 */
+        .timeline-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 120px;
+            top: 40px;
+            bottom: 80px;
+            width: 0;
+            border-left: 2px dashed var(--border-color);
+        }
+
+        .timeline-entry {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 36px;
+            position: relative;
+        }
+
+        /* 时间标签 */
+        .timeline-entry .entry-date {
+            font-size: 14px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            min-width: 80px;
+            padding-top: 4px;
+            text-align: right;
+        }
+
+        /* 圆点 */
+        .timeline-entry .entry-dot {
+            position: absolute;
+            left: 113px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            z-index: 2;
+            border: 3px solid var(--bg-primary);
+        }
+
+        .timeline-entry.featured .entry-dot {
+            background: var(--accent-green);
+            box-shadow: 0 0 12px rgba(63, 185, 80, 0.4);
+        }
+
+        /* 内容卡片 */
+        .timeline-entry .entry-card {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-left: 12px;
+            transition: border-color 0.2s;
+        }
+
+        .timeline-entry .entry-card:hover {
+            border-color: var(--accent);
+        }
+
+        .entry-card .entry-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .tag-new {
+            background: rgba(63, 185, 80, 0.15);
+            color: var(--accent-green);
+        }
+
+        .tag-improve {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent);
+        }
+
+        .tag-fix {
+            background: rgba(163, 113, 247, 0.15);
+            color: var(--accent-purple);
+        }
+
+        .entry-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .entry-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .entry-card .entry-detail {
+            list-style: none;
+            margin-top: 8px;
+        }
+
+        .entry-card .entry-detail li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 4px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .entry-card .entry-detail li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .changelog-footer {
+            text-align: center;
+            padding: 20px 40px 60px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .changelog-footer a {
+            color: var(--accent);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="changelog-page">
+        <!-- ========== 导航栏 ========== -->
+        <nav class="navbar">
+            <div class="navbar-inner">
+                <a href="index.html" class="nav-logo">
+                    <span class="logo-icon">T</span>
+                    TRAE
+                </a>
+                <ul class="nav-links">
+                    <li>
+                        <a href="#">产品 ▾</a>
+                        <div class="dropdown-menu">
+                            <a href="index.html">TRAE IDE</a>
+                            <a href="work.html">TRAE Work</a>
+                        </div>
+                    </li>
+                    <li><a href="enterprise.html">企业版</a></li>
+                    <li><a href="pricing.html">定价</a></li>
+                    <li><a href="changelog.html" class="active">更新日志</a></li>
+                    <li><a href="community.html">社区</a></li>
+                    <li><a href="knowledge.html">知识库</a></li>
+                    <li><a href="docs.html">文档</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="#" class="btn-login">登录</a>
+                    <a href="#" class="btn-primary">下载中心</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ========== 页面标题 ========== -->
+        <div class="changelog-header">
+            <h1>探索 TRAE 的最新动态</h1>
+            <p>了解每一次更新带来的新功能与改进</p>
+        </div>
+
+        <!-- ========== 时间线 ========== -->
+        <div class="timeline-wrapper">
+
+            <!-- 2025年6月 - 重大更新 -->
+            <div class="timeline-entry featured">
+                <span class="entry-date">2025.06.20</span>
+                <span class="entry-dot"></span>
+                <div class="entry-card">
+                    <span class="entry-tag tag-new">新功能</span>
+                    <h3>TRAE Work 网页版正式发布</h3>
+                    <p>全新的浏览器端 AI 编程助手上线，无需安装任何工具即可开始智能编程。</p>
+                    <ul class="entry-detail">
+                        <li>浏览器内直接编码，所有功能触手可及</li>
+                        <li>支持代码生成、审查、对话多种模式</li>
+                        <li>实时预览，即时查看代码效果</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2025年6月 -->
+            <div class="timeline-entry">
+                <span class="entry-date">2025.06.15</span>
+                <span class="entry-dot"></span>
+                <div class="entry-card">
+                    <span class="entry-tag tag-improve">改进</span>
+                    <h3>代码补全性能大幅提升</h3>
+                    <p>优化了底层模型推理速度，代码补全延迟降低 40%，响应更快更流畅。</p>
+                </div>
+            </div>
+
+            <!-- 2025年6月 -->
+            <div class="timeline-entry">
+                <span class="entry-date">2025.06.10</span>
+                <span class="entry-dot"></span>
+                <div class="entry-card">
+                    <span class="entry-tag tag-fix">修复</span>
+                    <h3>v2.3.1 Bug 修复版本</h3>
+                    <p>修复了在 Windows 系统下部分插件不兼容的问题，提升了多语言项目的支持。</p>
+                    <ul class="entry-detail">
+                        <li>修复 Windows 路径解析错误</li>
+                        <li>优化 Python 项目索引速度</li>
+                        <li>修复暗色主题下部分 UI 显示问题</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2025年5月 -->
+            <div class="timeline-entry">
+                <span class="entry-date">2025.05.28</span>
+                <span class="entry-dot"></span>
+                <div class="entry-card">
+                    <span class="entry-tag tag-new">新功能</span>
+                    <h3>多模型支持上线</h3>
+                    <p>新增多种 AI 模型选择，用户可以根据不同编程任务选择最适合的模型。</p>
+                    <ul class="entry-detail">
+                        <li>支持 Claude、GPT-4o 等主流模型</li>
+                        <li>不同任务场景智能推荐模型</li>
+                        <li>一键切换，无缝体验</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2025年5月 -->
+            <div class="timeline-entry">
+                <span class="entry-date">2025.05.15</span>
+                <span class="entry-dot"></span>
+                <div class="entry-card">
+                    <span class="entry-tag tag-improve">改进</span>
+                    <h3>UI 界面全面升级</h3>
+                    <p>重新设计了用户界面，采用更现代的视觉风格，提升了操作体验和可访问性。</p>
+                </div>
+            </div>
+
+            <!-- 2025年5月 -->
+            <div class="timeline-entry">
+                <span class="entry-date">2025.05.01</span>
+                <span class="entry-dot"></span>
+                <div class="entry-card">
+                    <span class="entry-tag tag-new">新功能</span>
+                    <h3>团队协作功能上线</h3>
+                    <p>支持团队成员共享 AI 对话上下文，实现协同编程。配合企业版方案使用。</p>
+                </div>
+            </div>
+
+            <!-- 2025年4月 -->
+            <div class="timeline-entry">
+                <span class="entry-date">2025.04.20</span>
+                <span class="entry-dot"></span>
+                <div class="entry-card">
+                    <span class="entry-tag tag-new">新功能</span>
+                    <h3>TRAE 正式发布 v2.0</h3>
+                    <p>TRAE 2.0 带来了全新的 AI 编程体验，核心能力全部重构，性能大幅提升。</p>
+                    <ul class="entry-detail">
+                        <li>全新智能代码补全引擎</li>
+                        <li>对话式编程交互</li>
+                        <li>跨文件上下文理解</li>
+                        <li>一键项目初始化</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="changelog-footer">
+            <a href="#">查看更多历史更新 →</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 TRAE. All rights reserved.</p>
+    </footer>
+</body>
+</html>
